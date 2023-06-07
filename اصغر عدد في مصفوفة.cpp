@@ -1,8 +1,15 @@
 #include <iostream>\\hazem AL-yaari
 using namespace std;
+void small_number();
  int main()
  { 
- double small,x[20],m;
+ small_number();
+// cout<<small<<endl;
+ return 0;		
+}
+void small_number()
+{
+	double small,x[20],m;
    for(int i=0;i<20;i++)
   {
   	cin>>x[i];
@@ -16,7 +23,7 @@ using namespace std;
 	  continue;
 	  else
 	  {
-	  	cout<<"whan you entered charcters , program is ended ! "<<endl;
+	  	  	cout<<"whan you entered charcters , program is ended ! "<<endl;
   		m=i-1;
 	  break;
 	  }
@@ -28,6 +35,4 @@ using namespace std;
    	 small=x[i+1];
 	}
 	cout<<"the small number that you entered is "<<small<<endl;
- 
- return 0;		
 }
