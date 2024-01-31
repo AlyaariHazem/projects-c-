@@ -30,7 +30,6 @@ int users();
 int chose();
 void casher();
 void account();
-void exit();
 bool constrain_money(int&money);
 string account_user;//use in casher and user fanctions
 string account_admin,password_admin;
@@ -461,7 +460,7 @@ void display_item()
 			
 		
     sort1.close();
-  //ext();//exit program or go to first program	
+  //ext();//ext program or go to first program	
 }
 void account()
 {
@@ -569,7 +568,7 @@ again:	cout<<"\n \n\nplease  enter your account  :     ";
 	 {
 	 	account1>>All_data.account_password;
 	 	account1>>All_data.account_money;
-	 	cout<<All_data.account_name<<"  password is "<<All_data.account_password<<endl;
+	 	
 	 	v1.push_back({All_data.account_name,All_data.account_password,All_data.account_money});
 	 }
 	 
@@ -580,17 +579,13 @@ again:	cout<<"\n \n\nplease  enter your account  :     ";
 	 		there=1;
 	 		break;
 		 }
-		 cout<<data.account_name<<"  password is "<<data.account_password<<endl;
 	 }
-	 int x;
-	 cin>>x;
 	 account1.close();
 	if(there==0)
 	{
 		system("cls");
 		system("color 4");
 		cout<<"password or account is Invalid : "<<endl;
-		
 		goto again;
 	}
 	
@@ -677,43 +672,6 @@ void casher()
 	int money1;
 	system("cls");
 	system("color 3");
-	  ifstream f("file.txt");
-  string line;
-   int n=0;
-  vector <string> vector_line;
-  while(getline(f,line))
-  {
-  	vector_line.push_back(line);
-  } 
-  int n1;
-  for(string l:vector_line)
-  {
-  	 if(l==account_user)
-  {
-  	n=1;
-  	continue;
-  }
-  	if(n==1)
-  	{
-		  if(l=="1")
-  		break;
-         int n=stoi(l.substr(l.find("      ")+1));//to get only number 
-         money1-=n;
-         n1+=n;
-		  cout<<l<<endl;
-		  continue;	
-	  }
-  }
-    cout<<"the total price is : "<<n1<<endl;
-    if(n1>money1)
-    {
-    	char again;
-    	cout<<"\n\n                              you don't have enough money ! "<<endl;
-    	cout<<"\n1-returning            2-any key to exit : "<<endl;
-x:   	cin>>again;
-		if(again=='1')
-    	users();
-	}
 	ifstream money("account.txt");
 	data_account m;
 	vector<data_account> v;
@@ -735,30 +693,34 @@ x:   	cin>>again;
  cout<<"\n\n                 Hello          "<<account_user<<"      your money is  "<<money1<<endl;	
  cout<<"\n products are : "<<endl;
  cout<<"name           price  "<<endl;
-
-  	cout<<"your money is "<<money1<<endl;
-	vector<data_account> vect;
-	data_account num;
-	ifstream m_f("account.txt");
-	while(m_f>>num.account_name)
-	{
-		m_f>>num.account_password;
-		m_f>>num.account_money;
-		vect.push_back({num.account_name,num.account_password,num.account_money});
-	}
-	ofstream m_ff("account.txt");
-	for(data_account line:vect)
-	{
-		if(line.account_name==account_user)
-        {
-         m_ff<<line.account_name<<"      "<<line.account_password<<"      "<<money1<<endl;line.account_money=money1;	
-		continue;
-		}
-	 m_ff<<line.account_name<<"      "<<line.account_password<<"      "<<line.account_money<<endl;
-	}
+  ifstream f("file.txt");
+  string line;
+   int n=0;
+  vector <string> vector_line;
+  while(getline(f,line))
+  {
+  	vector_line.push_back(line);
+  }
+  for(string l:vector_line)
+  {
+  	 if(l==account_user)
+  {
+  	n=1;
+  	continue;
+  }
+    
+  	if(n==1)
+  	{
+  	
+		  if(l=="1")
+  		break;
+		  cout<<l<<endl;
+		  continue;	
+	  }
+  }
 	int x;
 	cin>>x;
-    m_ff.close();
+	
 }
 
 bool constrain_money(int&money)
@@ -787,10 +749,7 @@ bool constrain_price(int&price)
 	}
 }
 
-void exit()
-{
-	
-}
+
 
 
 

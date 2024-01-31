@@ -13,24 +13,18 @@ struct product1{
 	int price;//variable to price
 	int quantites;//variable to 
 }  product;//opject from struct
-struct data_account{
-	string account_name;
-	string account_password;
-	int account_money;
-}All_data_account;
 void delete_item();//fanction to delete item
 float add_item();//fanction to add item
 void seartch_item();
-int edit_item();
+void edit_item();
 //void back_to_suprmarket();
 void display_item();
 void sort_item();
 void buy_item();
-int users();
+void users();
 int chose();
 void casher();
 void account();
-void exit();
 bool constrain_money(int&money);
 string account_user;//use in casher and user fanctions
 string account_admin,password_admin;
@@ -38,7 +32,6 @@ bool compare( product1 a, product1 b)//use in sort fanction
 {
 	return a.price<b.price;
 }
-bool constrain_price(int&price);
 bool equal(string n,string a)
 {
 	return n==a;
@@ -54,8 +47,6 @@ main()
 	  
 	  if(choose=='1')
 	  {
-	  	system("cls");
-	  	system("color 2");
         cout<<"  Hello \n please enter your account or  name : "<<endl;
 x1:		cin>>account_admin;
 		if(account_admin=="hazem")
@@ -64,7 +55,7 @@ x1:		cin>>account_admin;
 		{
 			system("color 4");
 			system("cls");
-			cout<<"\n\n                     your account or name is Invalid  try again :"<<endl;
+			cout<<"your account or name is Invalid  try again :"<<endl;
 			goto x1;
 		}
 		system("cls");
@@ -76,9 +67,8 @@ y1:		cin>>password_admin;
 		{
 			system("cls");
 		 system("color 4");
-		 cout<<"\n\n                                          sorry Invalid password : "<<endl;
 		 cout<<"\n your account is "<<account_admin<<endl;
-			cout<<"\n    your password is rong  try again :   ";
+			cout<<"\n your password is rong  try again :   ";
 			goto y1;
 			}
         else
@@ -113,9 +103,7 @@ x:
 			delete_item();
 			     break;
 		case '3':
-			z=edit_item();
-			if(z==6)
-			goto star; 
+			 edit_item(); 
 				 break;
 		case '4':
 		sort_item();    
@@ -168,25 +156,18 @@ end:  cout<<"***********************************************************\n"<<"se
 		 
 	  else if(choose=='2')
 	  {
-	  	int return1;char retur;
+	  	int return1;
 	  	system("color 7");
-	  	retur=users();
-	  	if(retur=='1')
-	  	   return1=chose();	
-	    else if(retur=='2')
-	    goto ext;
-	    else if(retur=='3') 
-	    goto end;
-  	if(return1==2)
+	  	users();
+	  	cout<<"choose any products you want : "<<endl;
+	  	return1=chose();
+  	if(return1=2)
 	 casher();
-	 else if(return1==3)
-	 goto ext;
-	 else
-	 goto end;
+	else
+	 cout<<" ";
 	  }
-	  
 	  else if(choose=='3')
-	  goto end;
+	  x='\b';
       else
 	  {
 	  	system("cls");
@@ -210,11 +191,12 @@ float add_item()
 	cout<<"               **************************************************************"<<endl;
 	cout<<"               *                       add item                             *"<<endl;
 	cout<<"               **************************************************************"<<endl;
-  cin.ignore();
+ 
  again: cout<<"enter product name:\t "<<endl;
      getline(cin,product.name);//getline ignore space and get line from begaining to end line whan you enter any thing 
      cout<<"enter price : \t"<<endl;
-	 constrain_price(product.price);
+     cin>>product.price;
+	 
      cout<<"How many product "<<endl;
 	 cin>>product.quantites;
 	
@@ -249,7 +231,6 @@ void seartch_item()
 	cout<<"               *                     search item                           *"<<endl;
 	cout<<"               **************************************************************"<<endl;
 	cout<<"enter the product name : "<<endl;
-	cin.ignore();
 	  getline(cin,product.name);//like cin>>prodrct.name;
 	  
 	  ifstream seartch_item("text.txt");//open file and read from within 
@@ -345,7 +326,7 @@ s:	cout<<deleted<<" is deleted : "<<endl;
 	file1.close(); 
    // ext();//ext program or go to first program  
 	} 
-int edit_item()
+void edit_item()
 {
 	system("cls");
 	system("color 6");
@@ -353,31 +334,26 @@ int edit_item()
 	cout<<"               *                       edit item                            *"<<endl;
 	cout<<"               **************************************************************"<<endl;
   
-	string name_edit,name;
+	string name_edit,name,edi[50];
     bool ch=false;
     cout<<"enter name that you want to edit it : "<<endl;
 not_found: cin>>name;
 	ifstream edit("text.txt");
-	product1 edi;
-	vector<product1> edit1;
-	while(edit>>edi.name)
+	for(int i=0;i<50;i++)
 	{
-		edit>>edi.price;
-		edit>>edi.quantites;
-		if(edi.name==name)
-		ch=true;
-		edit1.push_back(edi);
+		edit>>edi[i];
+		
+		if(name==edi[i])
+		  ch=true;
+		  
 	}
-	
-	if(name=="6")
-	return 6;
 	
 	if(ch==false)
 	{
 		system("color c");
 		system("cls");
 		cout<<"sorry ! "<<endl;
-	cout<<name<<" is not in file enter  name agian : \n\n\n\n 6 go to back :  ";
+	cout<<name<<" is not in file enter  name agian :a  ";
 	goto not_found;
 	}
 	edit.close();
@@ -388,28 +364,25 @@ not_found: cin>>name;
 	cout<<"enter name that you want to write it in the file : "<<endl;
 	cin>>name_edit;
 	cout<<"enter the price quntitie : "<<endl;
-	string  price_edit,quntities;int price;
-	 constrain_price (price);//cin>>price;
+	string  price_edit,quntities;
+	cin>>price_edit;
 	cout<<"enter the quntities products : "<<endl;
 	cin>>quntities;
 	cin.ignore();
 	ofstream ed("text.txt");
 	system("cls");	
 	system("color 1");
-	int m=1,r=1;
-	for(product1 line:edit1)
+	int m=1,r=2;
+	for(int i=0;i<50;i++ && m++)
 	{
 	    if(m%3==0)
 	    ed<<endl;
-		if(name==line.name&&r==1)//r=1 to enter one to condition
+		if(name==edi[i]&&r==2)//r=2 to edit one    not edit all
 		{
-		 ed<<name_edit<<"     "<<price<<"     "<<quntities<<endl;
-		  	name_edit=line.name;
-			price=line.price;
-			quntities=line.quantites; 
-			continue;                                                           
+		 ed<<name_edit<<"     "<<price_edit<<"     "<<quntities<<endl;
+		 i+=3; m+=3;r--;		
 		}
-	   ed<<line.name<<"     "<<line.price<<"      "<<line.quantites<<endl;
+	   ed<<edi[i]<<"     ";
 	}
 	cout<<name<<" is deleted "<<" and added "<<name_edit<<endl;
 	ed.close();
@@ -445,7 +418,7 @@ void display_item()
 	ifstream sort1("text.txt");
 	product1 item;
 	string name[50];
-	int x=1,m;
+	int x=1,price1[50],quntitie[50],m;
 		while(sort1>>item.name)
 		{
 			
@@ -461,7 +434,7 @@ void display_item()
 			
 		
     sort1.close();
-  //ext();//exit program or go to first program	
+  //ext();//ext program or go to first program	
 }
 void account()
 {
@@ -552,69 +525,52 @@ again:		system("color 7");
 //	sort.close();
 //	
 //}
-int users()
+void users()
 {
-	string name, password,line;  char c;
-	data_account All_data;
-	int there=0;
-again:	cout<<"\n \n\nplease  enter your account  :     ";
-	cin>>account_user;
-	cout<<"\n enter your password :    ";
-	cin>>password;
+	string name;int password;
+	cout<<"\n Hello \n\nplease  enter your account_user :     ";
+y:	cin>>account_user;
     system("color 7");
     system("cls");
-	 ifstream account1("account.txt");
-	 vector<data_account> v1;
-	 while(account1>>All_data.account_name)
-	 {
-	 	account1>>All_data.account_password;
-	 	account1>>All_data.account_money;
-	 	cout<<All_data.account_name<<"  password is "<<All_data.account_password<<endl;
-	 	v1.push_back({All_data.account_name,All_data.account_password,All_data.account_money});
-	 }
-	 
-	 for(data_account data:v1)
-	 {
-	 	if(account_user==data.account_name&&password==data.account_password)
-	 	{
-	 		there=1;
-	 		break;
-		 }
-		 cout<<data.account_name<<"  password is "<<data.account_password<<endl;
-	 }
-	 int x;
-	 cin>>x;
-	 account1.close();
-	if(there==0)
+	if(account_user=="hazem"||account_user=="user")
+	goto x;
+	else
 	{
 		system("cls");
 		system("color 4");
-		cout<<"password or account is Invalid : "<<endl;
-		
-		goto again;
+		cout<<"sorry you entered account Invalid try again : "<<endl;
+		goto y;
 	}
-	
-	 
+x:	cout<<"\n enter your password :    ";
+m:	cin>>password;
+	if(password==111||password==123)
+	goto r;
+	else
+	{
+		system("cls");
+		system("color 4");
+		cout<<"sorry : your password is rong try again : "<<endl;
+		goto m;
+	}
+r:	 
 	cout<<"  Hello   "<<account_user<<"\n"<<endl;
-	 cout<<"\n\n  1-buy     2-go to back     3-exit     : "<<endl;
-	 c=getch();
-	 return c;
+	ifstream buy("text.txt");
+	while(getline(buy,name))
+	 {
+	 	cout<<name<<endl;
+	 }
 }
 
 int chose()
 {
-	char x,cho;
+	char x;
 star:
-    string chose_name,total,line_display;int here=0;
+    string chose_name,total;
     product1 line;
+    cout<<"**********************************"<<endl;
+ag:	cout<<"enter product name"<<endl;
+    cin>>chose_name;
     vector<product1> chose_vector;
-    ifstream dsplay("text.txt");
-    while(getline(dsplay,line_display))
-    {
-    	cout<<line_display<<endl;
-	}
-	    cout<<"**********************************"<<endl;
-
 	ifstream ch("text.txt");
     while(ch>>line.name)
     {
@@ -624,141 +580,41 @@ star:
     	
 	}
 	ch.close();
-	ofstream store("file.txt",ios::app);
-	cout<<"chose products : \n"<<endl;
-     store<<account_user<<endl;
-     
-ag:
-n:  cin>>chose_name;	 
+	ofstream store("file.txt",ios::app);	 
 	for(product1 sell:chose_vector)
 	{
 		if(chose_name==sell.name)
          {
 	      store<<sell.name<<"      ";
-	      store<<sell.price<<endl;
-	      here=1;
-		 break;
+	      store<<sell.price<<endl ;
+		 continue;
 		 }
 	}
-	if(here==0)
-	{
-		system("cls");
-		system("color 4");
-		cout<<"sorry to entered number Invalid : "<<endl;
-		goto star;
-	}
-	
-  cout<<" 1-another products    2-get them      3-goto to star   4-exit   : "<<endl;
-r:    cho=getch();
-	switch(cho)
-	{
-	 case '1':
-	 	goto ag;
-	 	break;
-	case '2':
-	    store<<"1"<<endl;
-		store.close();
-		return 2;
-		break;
-	case '3':
-	    return 3; 
-	    break;
-	case '4':
-		return 4;
-	default :
-	cout<<"you entered number Invalid : "<<endl;
-	goto r;
-		break;
-	}
-} 
+	store.close();
+n:  cout<<" 1-add another product    2-returning        3-exit  "<<endl;
+   x=getch();
+   if(x=='1')
+   goto star;
+   else if(x=='2')
+   return 1;
+   else if(x=='3')
+    return 0;
+    se:
+   {
+   	chose_name="0";
+   cout<<"you enter number invilid : "<<endl;
+   goto n;
+   }
+}
 
 void casher()
 {
-	int money1;
-	system("cls");
-	system("color 3");
-	  ifstream f("file.txt");
-  string line;
-   int n=0;
-  vector <string> vector_line;
-  while(getline(f,line))
-  {
-  	vector_line.push_back(line);
-  } 
-  int n1;
-  for(string l:vector_line)
-  {
-  	 if(l==account_user)
-  {
-  	n=1;
-  	continue;
-  }
-  	if(n==1)
-  	{
-		  if(l=="1")
-  		break;
-         int n=stoi(l.substr(l.find("      ")+1));//to get only number 
-         money1-=n;
-         n1+=n;
-		  cout<<l<<endl;
-		  continue;	
-	  }
-  }
-    cout<<"the total price is : "<<n1<<endl;
-    if(n1>money1)
-    {
-    	char again;
-    	cout<<"\n\n                              you don't have enough money ! "<<endl;
-    	cout<<"\n1-returning            2-any key to exit : "<<endl;
-x:   	cin>>again;
-		if(again=='1')
-    	users();
-	}
-	ifstream money("account.txt");
-	data_account m;
-	vector<data_account> v;
-	while(money>>m.account_name)
-	{
-		money>>m.account_password;
-		money>>m.account_money;
-		v.push_back(m);
-	}
-	for(data_account c:v)
-	{
-		if(account_user==c.account_name)
-		{
-			money1=c.account_money;
-			
-		}
-	}
-
- cout<<"\n\n                 Hello          "<<account_user<<"      your money is  "<<money1<<endl;	
- cout<<"\n products are : "<<endl;
- cout<<"name           price  "<<endl;
-
-  	cout<<"your money is "<<money1<<endl;
-	vector<data_account> vect;
-	data_account num;
-	ifstream m_f("account.txt");
-	while(m_f>>num.account_name)
-	{
-		m_f>>num.account_password;
-		m_f>>num.account_money;
-		vect.push_back({num.account_name,num.account_password,num.account_money});
-	}
-	ofstream m_ff("account.txt");
-	for(data_account line:vect)
-	{
-		if(line.account_name==account_user)
-        {
-         m_ff<<line.account_name<<"      "<<line.account_password<<"      "<<money1<<endl;line.account_money=money1;	
-		continue;
-		}
-	 m_ff<<line.account_name<<"      "<<line.account_password<<"      "<<line.account_money<<endl;
-	}
-	int x;
-	cin>>x;
-    m_ff.close();
+ cout<<"                 Hello          "<<account_user<<"      your money is  "<<endl;	
+	
+	
+	
+	
+	
 }
 
 bool constrain_money(int&money)
@@ -767,30 +623,16 @@ bool constrain_money(int&money)
 	cin>>money;
 	if(cin.fail())
 	{
-		cout<<"sorry you entered Invalid charctars : "<<endl;
+		cout<<"sorry you entered number Invalid : "<<endl;
 		cin.clear();
 		cin.ignore(2500,'\n');
 		goto again_money;
 	}
 }
 
-bool constrain_price(int&price)
-{
-	again_price:
-	cin>>price;
-	if(cin.fail())
-	{
-		cout<<"sorry you entered charctars : "<<endl;
-		cin.clear();
-		cin.ignore(2500,'\n');
-		goto again_price;
-	}
-}
 
-void exit()
-{
-	
-}
+
+
 
 
 
